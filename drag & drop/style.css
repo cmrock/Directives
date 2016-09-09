@@ -1,0 +1,81 @@
+/* Put your css in here */
+
+
+/* li {
+  border: 2px solid;
+  border-radius: 5px;
+}
+ */
+
+ul {
+    list-style-type: none;
+}
+
+th {
+    border: 2px solid black;
+}
+
+.outer  {
+    width: 260px;
+    height: 80px;
+    border: 2px solid;
+    padding: 10px;
+    background-color:#eaece5;
+    margin: 15px;
+}
+.outer >p{
+
+    padding: -10px;
+    margin: -1px;
+}
+
+
+/* #div1 {
+  width: 60px;
+  height: 20px;
+  border: 2px solid;
+  border-radius: 5px;
+  margin: 0px;
+}
+
+#block {
+  width: 210px;
+  height: 80px;
+  padding: 10px;
+}
+ */
+#dropbox {
+    width: 260px;
+    height: 80px;
+    border: 2px solid;
+    border-style: dotted;
+    background-color:Snow;
+    padding: 10px;
+
+}
+.container {
+    display: flex;
+}
+.container1 {
+    display: flex;
+    background-color:GhostWhite;
+}
+.container1 > div {
+    flex: 1; /*grow*/
+}
+.container > div {
+    flex: 1; /*grow*/
+}
+
+img {
+    width: 50px;
+    pointer-events:none;
+}
+.circular {
+    width: 50px;
+    height: 50px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+
+}
