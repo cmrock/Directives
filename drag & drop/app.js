@@ -1,13 +1,11 @@
-/**
- * Created by chirag on 09.09.16.
- */
 var app = angular.module('plunker', ['ui', 'ngSanitize']);
 
 app.controller('MainCtrl', function($scope) {
 
-    // $scope.list1 = [
-    //   {'title': 'Item 1'}, {'title': 'Item 2'}, {'title': 'Item 3'}, {'title': 'Item 4'}];
-
+    /*
+    * @description
+    * Two array set ($scope.list1, $scope.list2)
+    * */
     $scope.list1 = [{
         'id': 1,
         'html': '<div><table> <tr><td rowspan="3"><img src="https://placehold.it/50x50" class="circular"></td><td><b>Name</b></td><td>person1</td></tr><tr><td><b>Contact</b></td><td>0512446545445</td></tr><tr><td><b>City</b></td><td>Berlin</td></tr></table></div>'
@@ -35,26 +33,38 @@ app.controller('MainCtrl', function($scope) {
         'html': '<div> <table> <tr><td rowspan="3"><img src="https://placehold.it/50x50" class="circular"></td> <td><b>Name</b></td><td>person8</td></tr><tr><td><b>Contact</b></td><td>0431355454095</td></tr><tr><td><b>City</b></td><td>Stuttgard</td></tr></table></div>'
     }];
 
+    /*
+    * @description
+    * Create empty array ($scope.list3) and add empty object as length of $scope.list2
+    * */
     $scope.list3 = [];
     for (var i = 0; i < $scope.list2.length; i++) {
         $scope.list3.push({});
     }
+
+    /*
+    * @description
+    * Create empty array ($scope.list4) and add empty object
+    * */
     $scope.list4=[];
     $scope.list4.push({});
 
 });
 
-
+/*
+* @description
+* dragDropDirective for dragging object and drop into empty slots
+* */
 app.directive('dragdropDirective', function() {
     return {
         restrict: 'EA',
         // require: ['myDraggable','myDroppable','mySortable'],
         templateUrl: 'dragdrop-directive.html',
         scope: {
-            data1: '=',
-            data2: '=',
-            data3: '=',
-            data4:'='
+            data1: '=', //$scope.list1
+            data2: '=', //$scope.list2
+            data3: '=', //$scope.list3
+            data4:'='   //$scope.list4
         },
         controller: function($scope) {
             $scope.paired = [];
@@ -62,11 +72,13 @@ app.directive('dragdropDirective', function() {
             var clipboard;
 
             $scope.handleDrag = function(obj) {
-
                 clipboard = obj;
-
-                // console.log(clipboard);
             };
+            /*
+            * @params {text}
+            * @description
+            * function to filter paired object after drag and drop action
+            * */
             $scope.pairFilter = function(text) {
                 var wordsToFilter = 'undefined';
                 for (var i = 0; i < wordsToFilter.length; i++) {
@@ -76,6 +88,11 @@ app.directive('dragdropDirective', function() {
                 }
                 return true;
             };
+            /*
+            * @params {text}
+            * @description
+            * function to filter unpaired object after drag and drop action
+            * */
             $scope.unpairFilter = function(text) {
                 var wordsToFilter = 'undefined';
                 for (var i = 0; i < wordsToFilter.length; i++) {
@@ -85,13 +102,17 @@ app.directive('dragdropDirective', function() {
                 }
                 return true;
             };
+            /*
+            * @description
+            * function to splice data from list 1 and push into list 3 in the dropped index
+            * */
             $scope.handleDrop = function(ind) {
                 var index = $scope.data3.indexOf(clipboard);
                 if (index == -1)
                     $scope.data3[ind] = clipboard;
                 $scope.combinedata(ind);
 
-                var data1index = $scope.data1.indexOf(clipboard)
+                var data1index = $scope.data1.indexOf(clipboard);
                 $scope.data1.splice(data1index, 1);
             };
 
@@ -99,6 +120,10 @@ app.directive('dragdropDirective', function() {
                 $scope.data3.splice(val.to, 0, $scope.data3.splice(val.from, 1)[0]);
 
             });
+            /*
+            * @description
+            * Function to paired data after drag and drop
+            * */
             $scope.combinedata = function(ind) {
                 $scope.combine = [$scope.data2[0].id + "-" + $scope.data3[0].id, $scope.data2[1].id + "-" + $scope.data3[1].id, $scope.data2[2].id + "-" + $scope.data3[2].id, $scope.data2[3].id + "-" + $scope.data3[3].id];
             };
@@ -106,6 +131,11 @@ app.directive('dragdropDirective', function() {
         }
     }
 });
+
+/*
+* @description
+* Draggable directive to drag the objects
+* */
 app.directive('myDraggable', function() {
     return {
         scope: {
@@ -130,7 +160,10 @@ app.directive('myDraggable', function() {
 
     };
 });
-
+/*
+* @description
+* Droppable directive to drop the objects
+* */
 app.directive('myDroppable', function() {
     return {
         scope: {
@@ -151,7 +184,10 @@ app.directive('myDroppable', function() {
         }
     };
 });
-
+/*
+* @description
+* Sortable directive to sort the objects
+* */
 app.directive('mySortable', function() {
     return {
         link: function(scope, el, attrs) {
