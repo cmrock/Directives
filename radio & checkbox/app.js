@@ -1,11 +1,11 @@
-/**
- * Created by chirag on 09.09.16.
- */
 var app = angular.module('plunker', []);
 
 app.controller('MainCtrl', function($scope) {
 
-
+    /*
+    * @description
+    * $scope.inputa and $scope.inputb for Radio Directive
+    * */
     $scope.inputa = {
         "name": "Max",
         "city": "Berlin",
@@ -18,7 +18,9 @@ app.controller('MainCtrl', function($scope) {
 
     };
 
-
+    /*
+    * $scope.inputc and $scope.inputd for Checkbox Directive
+    * */
     $scope.inputc = {
         "email": "Max@blabla.de",
         "telephone": "017669845452"
@@ -29,36 +31,24 @@ app.controller('MainCtrl', function($scope) {
     };
 });
 
-
-// Radio directive
-//
-
+/*
+* @description
+* Radio Directive
+* */
 app.directive('radioDirective', function() {
     return {
         restrict: 'E',
         templateUrl: "radio-directive.html",
         scope: {
-            input1: "=",
-            input2: "="
+            input1: "=", //inputa
+            input2: "="  //inputb
         },
 
         controller: function($scope) {
-            // $scope.radiocombined=[];
-            // for (var k in $scope.input2){
-            //     if ($scope.input1[k] !== undefined) {
-            //       $scope.radiocombined.push({
-            //         [[k]]:[$scope.input1[k], $scope.input2[k]]
-            //       })
-            //     } else {
-            //       $scope.radiocombined.push({
-            //         [[k]]:[$scope.input1[k],$scope.input2[k]]
-            //       })
-            //     }
-
-            //   }
 
             var data = [$scope.input1, $scope.input2];
 
+            // function to merge data with the same key
             function combineKeyData(data) {
                 var output = {},
                     item;
@@ -79,29 +69,31 @@ app.directive('radioDirective', function() {
 
             $scope.Utils = {
                 keys: Object.keys($scope.radioResult)
-            }
+            };
             $scope.name = {};
 
         }
     };
 });
 
-
-// checkbox directive
-//
+/*
+* @description
+* Checkbox Directive
+* */
 app.directive('checkboxDirective', function() {
     return {
         restrict: 'E',
         templateUrl: "checkbox-directive.html",
         scope: {
-            input3: "=",
-            input4: "="
+            input3: "=",  //inputc
+            input4: "="   //inputd
         },
 
         controller: function($scope) {
 
             var data = [$scope.input3, $scope.input4];
 
+            // function to merge data with the same key
             function combineKeyData(data) {
                 var output = {},
                     item;
@@ -122,9 +114,11 @@ app.directive('checkboxDirective', function() {
 
             $scope.Utils = {
                 keys: Object.keys($scope.checkboxResult)
-            }
+            };
 
             $scope.eSelection = [];
+
+            // function to check and uncheck checkboxes
             $scope.dataSelection = function(value) {
                 var idx = $scope.eSelection.indexOf(value);
 
